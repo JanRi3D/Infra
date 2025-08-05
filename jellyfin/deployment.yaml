@@ -28,6 +28,8 @@ spec:
           volumeMounts:
             - mountPath: /mnt/Medienbibliothek
               name: medienbibliothek
+            - mountPath: /dev/dri
+              name: quicksync
       volumes:
         - name: medienbibliothek
           nfs:
