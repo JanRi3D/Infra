@@ -34,6 +34,9 @@ spec:
             server: 192.168.0.56
             path: /volume1/Medienbibiothek
             readOnly: true
+            mountOptions:
+              - vers=3
+              - sec=sys
 ---
 apiVersion: v1
 kind: Service
