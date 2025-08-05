@@ -27,9 +27,9 @@ spec:
             - containerPort: 8096
           volumeMounts:
             - mountPath: /volume1/Medienbibiothek
-              name: Medienbibiothek
+              name: medienbibiothek
       volumes:
-        - name: Medienbibiothek
+        - name: medienbibiothek
           nfs:
             server: 192.168.0.56
             path: /volume1/Medienbibiothek
