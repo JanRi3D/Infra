@@ -28,18 +28,12 @@ spec:
           volumeMounts:
             - mountPath: /mnt/Medienbibliothek
               name: medienbibliothek
-            - mountPath: /dev/dri
-              name: quicksync
       volumes:
         - name: medienbibliothek
           nfs:
             server: 192.168.0.56
             path: /volume1/Medienbibliothek/Medien
             readOnly: true
-        - name: quicksync
-          hostPath:
-            path: /dev/dri
-            type: Directory
 ---
 apiVersion: v1
 kind: Service
