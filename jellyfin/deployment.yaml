@@ -46,23 +46,3 @@ spec:
   ports:
   - port: 8096
     targetPort: 8096
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: jellyfin
-  labels:
-    app.kubernetes.io/name: jellyfin
-  namespace: jellyfin
-spec:
-  rules:
-  - host: jellyfin.ri3d.de
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: jellyfin
-            port:
-              number: 8096
