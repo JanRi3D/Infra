@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: plex
-          image: ghcr.io/home-operations/plex:latest
+          image: ghcr.io/home-operations/plex:rolling
           ports:
             - containerPort: 32400
 ---
