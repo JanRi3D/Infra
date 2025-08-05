@@ -26,17 +26,14 @@ spec:
           ports:
             - containerPort: 8096
           volumeMounts:
-            - mountPath: /volume1/Medienbibiothek
-              name: medienbibiothek
+            - mountPath: /volume1/Medienbibliothek
+              name: medienbibliothek
       volumes:
-        - name: medienbibiothek
+        - name: medienbibliothek
           nfs:
             server: 192.168.0.56
-            path: /volume1/Medienbibiothek
+            path: /volume1/Medienbibliothek
             readOnly: true
-            mountOptions:
-              - vers=3
-              - sec=sys
 ---
 apiVersion: v1
 kind: Service
