@@ -34,10 +34,8 @@ spec:
             requests:
               cpu: "500m"
               memory: "512Mi"
-            limits:
-              cpu: "1000m"
-              memory: "1024Mi"
               gpu.intel.com/i915: 1000m
+
           volumeMounts:
             - mountPath: /mnt/Medienbibliothek
               name: medienbibliothek
