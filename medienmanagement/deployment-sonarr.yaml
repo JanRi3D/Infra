@@ -20,20 +20,42 @@ spec:
       labels:
         app: sonarr
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 65534 # (Requires CSI support)
+        fsGroupChangePolicy: OnRootMismatch # (Requires CSI support)
       containers:
         - name: sonarr
           image: ghcr.io/home-operations/sonarr:rolling
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: false
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
           ports:
             - containerPort: 8989
           volumeMounts:
             - mountPath: /mnt/Medienbibliothek
               name: medienbibliothek
+            - name: tmp
+              mountPath: /tmp
       volumes:
         - name: medienbibliothek
           nfs:
             server: 192.168.0.56
             path: /volume1/Medienbibliothek
             readOnly: false
+        - name: tmp
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
