@@ -21,8 +21,8 @@ spec:
         app: jellyfin
     spec:
       securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
+          runAsUser: 0
+          runAsGroup: 0
           supplementalGroups:
             - 105
       containers:
@@ -42,9 +42,6 @@ spec:
             server: 192.168.0.56
             path: /volume1/Medienbibliothek/Medien
             readOnly: true
-            mountOptions:
-            - anonuid=1000
-            - anongid=1000
         - name: 'quicksync'
           hostPath:
             path: '/dev/dri/renderD128'
