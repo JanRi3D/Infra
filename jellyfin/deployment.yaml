@@ -35,6 +35,10 @@ spec:
               cpu: "500m"
               memory: "512Mi"
               gpu.intel.com/i915: 1000m
+            limits:
+              cpu: "4000m"
+              memory: "8Gi"
+              gpu.intel.com/i915: 1000m
 
           volumeMounts:
             - mountPath: /mnt/Medienbibliothek
@@ -55,7 +59,7 @@ spec:
         - name: jellyfin-transcode
           emptyDir: 
             medium: Memory
-            sizeLimit: 2Gi
+            sizeLimit: 10Gi
 ---
 apiVersion: v1
 kind: Service
