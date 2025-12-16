@@ -2,7 +2,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumLoadBalancerIPPool
 metadata:
-  name: VIP
+  name: vip
 spec:
   allowFirstLastIPs: "Yes"
   blocks:
