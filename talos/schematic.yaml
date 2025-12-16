@@ -1,0 +1,10 @@
+---
+customization:
+    systemExtensions:
+        officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/iscsi-tools
+            - siderolabs/mei
+            - siderolabs/nfsrahead
+            - siderolabs/util-linux-tools

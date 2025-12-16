@@ -1,0 +1,22 @@
+---
+machine:
+  network:
+    hostname: Aurora
+    interfaces:
+      - interface: enp0s31f6
+        dhcp: false
+        addresses:
+          - 10.0.1.1/23
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 10.0.0.1
+        vip:
+          ip: 10.0.1.10
+  install:
+    disk: /dev/nvme0n1
+cluster:
+  network:
+    cni:
+      name: none
+  proxy:
+    disabled: true
