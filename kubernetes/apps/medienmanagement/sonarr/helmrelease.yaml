@@ -1,0 +1,72 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: sonarr
+  namespace: medienmanagement
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: sonarr
+    namespace: medienmanagement
+  interval: 1h
+  values:
+    controllers:
+      sonarr:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/sonarr
+              tag: 4.0.16.2943
+            env:
+              SONARR__APP__INSTANCENAME: Sonarr
+              SONARR__APP__THEME: dark
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              SONARR__LOG__DBENABLED: "False"
+              SONARR__LOG__LEVEL: info
+              SONARR__SERVER__PORT: &port 8989
+              SONARR__UPDATE__BRANCH: develop
+              TZ: Europe/Berlin
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 4Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    persistence:
+      config:
+        existingClaim: sonarr-pvc
+      media:
+        type: nfs
+        server: 10.0.1.8
+        path: /volume1/Medienbibliothek
+        globalMounts:
+          - path: /mnt/Medienbibliothek
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.ri3d.me"
+        parentRefs:
+          - name: envoy
+            namespace: envoy-gateway

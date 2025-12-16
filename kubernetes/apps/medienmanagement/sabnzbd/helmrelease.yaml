@@ -1,0 +1,64 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: sabnzbd
+  namespace: medienmanagement
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: sabnzbd
+    namespace: medienmanagement
+  interval: 1h
+  values:
+    controllers:
+      sabnzbd:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/sabnzbd
+              tag: 4.5.5
+            env:
+              SABNZBD__PORT: &port 8080
+              TZ: Europe/Berlin
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 4Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    persistence:
+      config:
+        existingClaim: sabnzbd-pvc
+      media:
+        type: nfs
+        server: 10.0.1.8
+        path: /volume1/Medienbibliothek/Usenet
+        globalMounts:
+          - path: /mnt/Medienbibliothek/Usenet
+      incomplete:
+        type: emptyDir
+      tmp:
+        type: emptyDir
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.ri3d.me"
+        parentRefs:
+          - name: envoy
+            namespace: envoy-gateway
