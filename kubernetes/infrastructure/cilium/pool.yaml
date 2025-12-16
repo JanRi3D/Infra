@@ -1,0 +1,9 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: VIP
+spec:
+  allowFirstLastIPs: "Yes"
+  blocks:
+    - cidr: "10.0.1.10/32"
