@@ -1,15 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
+  "extends": ["config:recommended"],
   "flux": {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
+    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
   },
   "helm-values": {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
+    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
   },
   "kubernetes": {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-  },
+    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
+  }
 }
