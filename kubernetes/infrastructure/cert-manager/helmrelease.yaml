@@ -10,6 +10,10 @@ spec:
     name: cert-manager
     namespace: cert-manager
   interval: 1h
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     installCRDs: true
     extraArgs:
