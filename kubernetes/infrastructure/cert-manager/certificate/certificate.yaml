@@ -5,7 +5,7 @@ metadata:
   name: ri3d-me
   namespace: envoy-gateway
 spec:
-  secretName: "ri3d.me-tls"
+  secretName: "ri3d-me-tls"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
