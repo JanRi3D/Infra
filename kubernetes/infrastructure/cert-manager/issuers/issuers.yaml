@@ -1,3 +1,4 @@
+---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -11,6 +12,7 @@ spec:
     solvers:
       - dns01:
           cloudflare:
+            email: janried01@gmail.com
             apiTokenSecretRef:
               name: cert-manager-secret
               key: api-token
