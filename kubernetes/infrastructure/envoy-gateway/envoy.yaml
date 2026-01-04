@@ -29,3 +29,9 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+        - kind: Secret
+          group: ""
+          name: ri3d-me-tls

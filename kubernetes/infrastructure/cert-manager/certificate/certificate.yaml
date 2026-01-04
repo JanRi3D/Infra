@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ri3d-me
+  namespace: cert-manager
+spec:
+  secretName: "ri3d.me-tls"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - 'ri3d.me'
+  - '*.ri3d.me'
