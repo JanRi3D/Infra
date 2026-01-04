@@ -62,7 +62,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.ri3d.me"
+          - "auth.ri3d.me"
         parentRefs:
           - name: envoy
             namespace: envoy-gateway
