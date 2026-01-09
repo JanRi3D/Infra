@@ -28,7 +28,6 @@ spec:
               ND_SCANSCHEDULE: 30min
               ND_SESSIONTIMEOUT: 24h
               ND_BASEURL: https://navidrome.ri3d.me
-              SQLITE_TMPDIR: /data/
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
