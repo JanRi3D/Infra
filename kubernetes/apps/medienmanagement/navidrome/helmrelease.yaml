@@ -20,7 +20,7 @@ spec:
               tag: 0.59.0
             env:
               TZ: "Europe/Berlin"
-              ND_DATAFOLDER: /config
+              ND_DATAFOLDER: /data
               ND_ENABLEGRAVATAR: "true"
               ND_LOGLEVEL: info
               ND_MUSICFOLDER: /mnt/Medienbibliothek/Medien/Musik
@@ -50,10 +50,8 @@ spec:
           http:
             port: *port
     persistence:
-      config:
+      data:
         existingClaim: navidrome-pvc
-        globalMounts:
-          - path: /config
       media:
         type: nfs
         server: 10.0.1.8
