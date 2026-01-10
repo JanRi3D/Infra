@@ -30,7 +30,7 @@ spec:
               TZ: Europe/Berlin
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
             resources:
               requests:
@@ -63,6 +63,11 @@ spec:
         globalMounts:
           - path: /tmp
             subPath: tmp
+      run:
+        type: emptyDir
+        medium: Memory
+        globalMounts:
+          - path: /run
     route:
       app:
         hostnames:
