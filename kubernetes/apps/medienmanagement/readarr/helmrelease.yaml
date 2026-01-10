@@ -13,6 +13,16 @@ spec:
   values:
     controllers:
       readarr:
+        initContainers:
+          chown-run:
+            image:
+              repository: busybox
+              tag: 1.37.0
+            command: ["sh", "-c"]
+            args: ["chown -R 1001:1001 /run"]
+            securityContext:
+              runAsNonRoot: false
+              runAsUser: 0
         containers:
           app:
             image:
