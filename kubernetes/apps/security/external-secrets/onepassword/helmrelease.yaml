@@ -53,6 +53,13 @@ spec:
                     key: 1password-credentials.json
             resources: *resources
             securityContext: *securityContext
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
