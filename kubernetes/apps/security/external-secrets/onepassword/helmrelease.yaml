@@ -51,15 +51,9 @@ spec:
                   secretKeyRef:
                     name: "{{ .Release.Name }}-secret"
                     key: 1password-credentials.json
+                    namespace: external-secrets
             resources: *resources
             securityContext: *securityContext
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
