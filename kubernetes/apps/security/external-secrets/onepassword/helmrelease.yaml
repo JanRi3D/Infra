@@ -35,7 +35,7 @@ spec:
                 memory: 64Mi
             securityContext: &securityContext
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: {drop: ["ALL"]}
           sync:
             image:
@@ -51,7 +51,6 @@ spec:
                   secretKeyRef:
                     name: "{{ .Release.Name }}-secret"
                     key: 1password-credentials.json
-                    namespace: external-secrets
             resources: *resources
             securityContext: *securityContext
     service:
