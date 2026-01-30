@@ -12,9 +12,26 @@ spec:
   interval: 1h
   values:
     leaderElect: true
+    installCRDs: true
     serviceMonitor:
       enabled: false
     grafanaDashboard:
       enabled: false
     webhook:
       replicaCount: 2
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          memory: 256Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 1000
+    grafanaDashboard:
+      enabled: true
