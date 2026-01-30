@@ -35,7 +35,7 @@ spec:
                 memory: 64Mi
             securityContext: &securityContext
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
           sync:
             image:
