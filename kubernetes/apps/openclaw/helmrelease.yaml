@@ -29,6 +29,8 @@ spec:
               - --port
               - "18789"
               - --allow-unconfigured
+              - --trusted-proxies
+              - "10.244.0.0/16"
             env:
               TZ: Europe/Berlin
               OPENCLAW_GATEWAY_TOKEN: 1234
