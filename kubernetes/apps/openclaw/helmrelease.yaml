@@ -21,19 +21,20 @@ spec:
               repository: ghcr.io/openclaw/openclaw
               tag: 2026.2.6
             command:
-              - node
-              - dist/index.js
-              - gateway
-              - --bind
-              - lan
-              - --port
-              - "18789"
-              - --allow-unconfigured
+              - /bin/sh
+              - -c
+              - |
+                # Set up openclawbot CLI symlink
+                ln -sf /app/openclawbot.mjs /home/node/.local/bin/openclawbot
+
+                # Run doctor before gateway starts
+                node dist/index.js doctor --fix || true
+
+                # Start gateway
+                exec node dist/index.js gateway --bind lan --port 18789 --allow-unconfigured
             env:
               TZ: Europe/Berlin
               OPENCLAW_GATEWAY_TOKEN: 1234
-              OPENCLAW_GATEWAY_TRUSTED_PROXIES: "10.244.0.0/16"
-              OPENCLAW_GATEWAY_MODE: local
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
@@ -52,7 +53,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: openclaw
         ports:
           http:
             port: 18789
