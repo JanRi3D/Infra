@@ -14,8 +14,8 @@ spec:
           cloudflare:
             email: janried01@gmail.com
             apiTokenSecretRef:
-              name: cert-manager-secret
-              key: api-token
+              name: cloudflare-issuer-secret
+              key: CLOUDFLARE_DNS_TOKEN
         selector:
           dnsZones:
             - "ri3d.me"
