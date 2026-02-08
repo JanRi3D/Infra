@@ -23,6 +23,7 @@ spec:
             env:
               TZ: Europe/Berlin
               OPENCLAW_GATEWAY_TOKEN: 1234
+              OPENCLAW_GATEWAY_HOST: 0.0.0.0
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
