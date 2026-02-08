@@ -13,10 +13,8 @@ spec:
   values:
     controllers:
       openclaw:
-        annotations:
-          reloader.stakater.com/auto: "true"
         containers:
-          app:
+          openclaw:
             image:
               repository: ghcr.io/openclaw/openclaw
               tag: 2026.2.6
