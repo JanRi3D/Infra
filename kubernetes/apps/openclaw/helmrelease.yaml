@@ -28,6 +28,7 @@ spec:
               - lan
               - --port
               - "18789"
+              - --allow-unconfigured
             env:
               TZ: Europe/Berlin
               OPENCLAW_GATEWAY_TOKEN: 1234
