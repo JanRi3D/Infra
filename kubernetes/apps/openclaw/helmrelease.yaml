@@ -28,6 +28,7 @@ spec:
               - lan
               - --port
               - "18789"
+              - --allow-unconfigured
             env:
               TZ: Europe/Berlin
               HOME: /home/node
