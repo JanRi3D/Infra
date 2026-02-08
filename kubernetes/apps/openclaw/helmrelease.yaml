@@ -33,6 +33,7 @@ spec:
               TZ: Europe/Berlin
               OPENCLAW_GATEWAY_TOKEN: 1234
               OPENCLAW_GATEWAY_TRUSTED_PROXIES: "10.244.0.0/16"
+              OPENCLAW_GATEWAY_MODE: local
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
