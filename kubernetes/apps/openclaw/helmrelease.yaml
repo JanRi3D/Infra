@@ -19,6 +19,7 @@ spec:
               repository: ghcr.io/openclaw/openclaw
               tag: 2026.2.6
             command:
+              - node dist/index.js doctor --fix || true
               - node
               - dist/index.js
               - gateway
