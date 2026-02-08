@@ -41,6 +41,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
+        controller: openclaw
         ports:
           http:
             port: 18789
