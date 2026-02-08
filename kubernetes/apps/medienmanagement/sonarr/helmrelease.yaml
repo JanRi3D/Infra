@@ -28,6 +28,9 @@ spec:
               SONARR__SERVER__PORT: &port 8989
               SONARR__UPDATE__BRANCH: develop
               TZ: Europe/Berlin
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
