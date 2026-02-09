@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: reloader
+  namespace: reloader
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: reloader
+    namespace: reloader
+  interval: 1h
+  values:
+    fullnameOverride: reloader
+    reloader:
+      enableHA: true
+      deployment:
+        replicas: 1
+      readOnlyRootFileSystem: true
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
