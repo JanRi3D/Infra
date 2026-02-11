@@ -26,6 +26,7 @@ spec:
             image:
               repository: ghcr.io/recyclarr/recyclarr
               tag: 7.5.2
+            args: ["sync"]
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
