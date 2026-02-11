@@ -26,7 +26,7 @@ data:
               allowed: true
               until_quality: Web-1080p
               until_score: 35000
-            min_format_score: 0
+            min_format_score: 10000
             quality_sort: top
             qualities:
               - name: Web-1080p
@@ -42,7 +42,7 @@ data:
               allowed: true
               until_quality: Web-1080p
               until_score: 35000
-            min_format_score: 0
+            min_format_score: 10000
             quality_sort: top
             qualities:
               - name: Web-1080p
@@ -58,12 +58,32 @@ data:
 
         custom_formats:
           - trash_ids:
-              # --- Sprache (DE bevorzugt) ---
+              # --- Sprache (DE erforderlich) ---
               - ed51973a811f51985f14e2f6f290e47a # German DL
               - c5dd0fd675f85487ad5bdf97159180bd # German DL (undefined)
-              - 8a9fcdbb445f2add0505926df3bb7b8a # German
-              - 133589380b89f8f8394320901529bac1 # Not German or English
+            quality_profiles:
+              - name: DE WEB 1080p
+                score: 15000
+              - name: DE Anime WEB 720-1080
+                score: 15000
 
+          - trash_ids:
+              - 8a9fcdbb445f2add0505926df3bb7b8a # German
+            quality_profiles:
+              - name: DE WEB 1080p
+                score: 10000
+              - name: DE Anime WEB 720-1080
+                score: 10000
+
+          - trash_ids:
+              - 133589380b89f8f8394320901529bac1 # Not German or English
+            quality_profiles:
+              - name: DE WEB 1080p
+                score: -10000
+              - name: DE Anime WEB 720-1080
+                score: -10000
+
+          - trash_ids:
               # --- German HQ Source Groups ---
               - 68be37323132b35cf333c81a2ac8fc16 # German Web Tier 01
               - f51b96a50b0e6196cb69724b7833d837 # German Web Tier 02
@@ -141,12 +161,11 @@ data:
               enabled: true
             upgrade:
               allowed: true
-              until_quality: Bluray-1080p
+              until_quality: WEB 1080p
               until_score: 35000
-            min_format_score: 0
+            min_format_score: 10000
             quality_sort: top
             qualities:
-              - name: Bluray-1080p
               - name: WEB 1080p
                 qualities:
                   - WEBDL-1080p
@@ -154,12 +173,26 @@ data:
 
         custom_formats:
           - trash_ids:
-              # --- Sprache (DE bevorzugt) ---
+              # --- Sprache (DE erforderlich) ---
               - f845be10da4f442654c13e1f2c3d6cd5 # German DL
               - 6aad77771dabe9d3e9d7be86f310b867 # German DL (undefined)
-              - 86bc3115eb4e9873ac96904a4a68e19e # German
-              - 4eadb75fb23d09dfc0a8e3f687e72287 # Not German or English
+            quality_profiles:
+              - name: DE HD-1080p
+                score: 15000
 
+          - trash_ids:
+              - 86bc3115eb4e9873ac96904a4a68e19e # German
+            quality_profiles:
+              - name: DE HD-1080p
+                score: 10000
+
+          - trash_ids:
+              - 4eadb75fb23d09dfc0a8e3f687e72287 # Not German or English
+            quality_profiles:
+              - name: DE HD-1080p
+                score: -10000
+
+          - trash_ids:
               # --- German HQ Source Groups ---
               - a2ab25194f463f057a5559c03c84a3df # German Web Tier 01
               - 08d120d5a003ec4954b5b255c0691d79 # German Web Tier 02
