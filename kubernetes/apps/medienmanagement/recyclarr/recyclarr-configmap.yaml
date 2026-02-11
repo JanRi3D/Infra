@@ -8,7 +8,7 @@ data:
     sonarr:
       sonarr_main:
         base_url: http://sonarr.medienmanagement.svc.cluster.local:8989
-        api_key: !env_var SONARR_API_KEY
+        api_key: !env_var SONARR__AUTH__APIKEY
 
         delete_old_custom_formats: true
         replace_existing_custom_formats: true
@@ -126,7 +126,7 @@ data:
     radarr:
       radarr_main:
         base_url: http://radarr.medienmanagement.svc.cluster.local:7878
-        api_key: !env_var RADARR_API_KEY
+        api_key: !env_var RADARR__AUTH__APIKEY
 
         delete_old_custom_formats: true
         replace_existing_custom_formats: true
