@@ -31,7 +31,7 @@ spec:
               HARDCOVER_TOKEN:
                 valueFrom:
                   secretKeyRef:
-                    name: *app
+                    name: calibre-web-automated-secret
                     key: HARDCOVER_TOKEN
             securityContext:
               allowPrivilegeEscalation: false
