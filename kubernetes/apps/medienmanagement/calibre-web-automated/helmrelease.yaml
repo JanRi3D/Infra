@@ -33,17 +33,17 @@ spec:
                   secretKeyRef:
                     name: calibre-web-automated-secret
                     key: HARDCOVER_TOKEN
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities:
-                drop: ["ALL"]
-                add:
-                  - CHOWN
-                  - SETUID
-                  - SETGID
-                  - FOWNER
-                  - DAC_OVERRIDE
+#            securityContext:
+#              allowPrivilegeEscalation: false
+#              readOnlyRootFilesystem: false
+#              capabilities:
+#                drop: ["ALL"]
+#                add:
+#                  - CHOWN
+#                  - SETUID
+#                  - SETGID
+#                  - FOWNER
+#                  - DAC_OVERRIDE
             resources:
               requests:
                 cpu: 100m
@@ -52,11 +52,10 @@ spec:
                 memory: 2Gi
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        runAsNonRoot: false
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
