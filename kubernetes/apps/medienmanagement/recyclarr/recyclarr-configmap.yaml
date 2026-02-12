@@ -5,10 +5,6 @@ metadata:
   namespace: medienmanagement
 data:
   recyclarr.yml: |
-    # Recyclarr config for Sonarr/Radarr.
-    # This file must match Recyclarr's schema. The previous version mixed sample snippets
-    # and invalid indentation, which can prevent `recyclarr sync` from running.
-
     sonarr:
       sonarr:
         base_url: http://sonarr.medienmanagement.svc.cluster.local:8989
@@ -16,7 +12,6 @@ data:
         delete_old_custom_formats: true
         replace_existing_custom_formats: true
 
-        # German-first templates (TRaSH Guides)
         include:
           - template: sonarr-quality-definition-series
           - template: sonarr-v4-quality-profile-hd-bluray-web-german
@@ -24,22 +19,39 @@ data:
           - template: sonarr-v4-quality-profile-hd-remux-web-german
           - template: sonarr-v4-custom-formats-hd-remux-web-german
 
-        # If you want to be MUCH stricter about German (can block upgrades if no German release exists):
-        # quality_profiles:
-        #   - name: HD Bluray + WEB (GER)
-        #     min_format_score: 10000
-        #   - name: HD Remux + WEB (GER)
-        #     min_format_score: 10000
+        # Erzwingt Deutsch-Audio (wenn es keine passende DE-Version gibt, wird nicht "irgendwas" genommen)
+        quality_profiles:
+          - name: HD Bluray + WEB (GER)
+            min_format_score: 10000
+          - name: HD Remux + WEB (GER)
+            min_format_score: 10000
 
-        # Optional extra overrides (uncomment what you really want):
-        # custom_formats:
-        #   - trash_ids:
-        #       - 47435ece6b99a0b477caf360e79ba0bb # Block all x265 HD releases
-        #     assign_scores_to:
-        #       - name: HD Bluray + WEB (GER)
-        #         score: -35000
-        #       - name: HD Remux + WEB (GER)
-        #         score: -35000
+        # Codec-Priorität: AV1 > H.265/HEVC > H.264/AVC
+        # (TRaSH bewertet AV1 standardmäßig negativ; hier wird es bewusst bevorzugt)
+        custom_formats:
+          - trash_ids:
+              - 15a05bc7c1a36e2b57fd628f8977e2fc # AV1 :contentReference[oaicite:0]{index=0}
+            assign_scores_to:
+              - name: HD Bluray + WEB (GER)
+                score: 5000
+              - name: HD Remux + WEB (GER)
+                score: 5000
+
+          - trash_ids:
+              - c9eafd50846d299b862ca9bb6ea91950 # x265 / HEVC :contentReference[oaicite:1]{index=1}
+            assign_scores_to:
+              - name: HD Bluray + WEB (GER)
+                score: 2000
+              - name: HD Remux + WEB (GER)
+                score: 2000
+
+          - trash_ids:
+              - cddfb4e32db826151d97352b8e37c648 # x264 / AVC :contentReference[oaicite:2]{index=2}
+            assign_scores_to:
+              - name: HD Bluray + WEB (GER)
+                score: -2000
+              - name: HD Remux + WEB (GER)
+                score: -2000
 
     radarr:
       radarr:
@@ -48,21 +60,32 @@ data:
         delete_old_custom_formats: true
         replace_existing_custom_formats: true
 
-        # German-first templates (TRaSH Guides)
         include:
           - template: radarr-quality-definition-movie
           - template: radarr-quality-profile-hd-bluray-web-german
           - template: radarr-custom-formats-hd-bluray-web-german
 
-        # If you want to strongly avoid non-German releases (can block movies with no German option):
-        # quality_profiles:
-        #   - name: HD Bluray + WEB (GER)
-        #     min_format_score: 10000
+        # Erzwingt Deutsch-Audio
+        quality_profiles:
+          - name: HD Bluray + WEB (GER)
+            min_format_score: 10000
 
-        # Optional extra overrides (uncomment what you really want):
-        # custom_formats:
-        #   - trash_ids:
-        #       - dc98083864ea246d05a42df0d05f81cc # Block all x265 HD releases
-        #     assign_scores_to:
-        #       - name: HD Bluray + WEB (GER)
-        #         score: -35000
+        # Codec-Priorität: AV1 > H.265/HEVC > H.264/AVC
+        custom_formats:
+          - trash_ids:
+              - 15a05bc7c1a36e2b57fd628f8977e2fc # AV1 :contentReference[oaicite:3]{index=3}
+            assign_scores_to:
+              - name: HD Bluray + WEB (GER)
+                score: 5000
+
+          - trash_ids:
+              - c9eafd50846d299b862ca9bb6ea91950 # x265 / HEVC :contentReference[oaicite:4]{index=4}
+            assign_scores_to:
+              - name: HD Bluray + WEB (GER)
+                score: 2000
+
+          - trash_ids:
+              - cddfb4e32db826151d97352b8e37c648 # x264 / AVC :contentReference[oaicite:5]{index=5}
+            assign_scores_to:
+              - name: HD Bluray + WEB (GER)
+                score: -2000
