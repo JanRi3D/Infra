@@ -1,0 +1,65 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: plex
+  namespace: medienmanagement
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: plex
+    namespace: medienmanagement
+  interval: 1h
+  values:
+    controllers:
+      plex:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/plex
+              tag: 1.43.0.10492@sha256:8cb062f2b0660bd7811387e6c799da0ce5f18112078fe21485c11adcc83a9c1c
+            env:
+              TZ: Europe/Berlin
+              PLEX_ADVERTISE_URL: https://plex.ri3d.me:443,http://plex.medienmanagement.svc.cluster.local:32400
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 4Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: 32400
+    persistence:
+      config:
+        existingClaim: plex-pvc
+      media:
+        type: nfs
+        server: 10.0.1.8
+        path: /volume1/Medienbibliothek
+        globalMounts:
+          - path: /mnt/Medienbibliothek
+            readOnly: true
+      tmp:
+        type: emptyDir
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.ri3d.me"
+        parentRefs:
+          - name: envoy
+            namespace: envoy-gateway
