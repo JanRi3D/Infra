@@ -44,27 +44,23 @@ spec:
     persistence:
       config:
         existingClaim: jellyfin-pvc
-        globalMounts:
-          - path: /config
       media:
         type: nfs
         server: 10.0.1.8
         path: /volume1/Medienbibliothek/Medien
         globalMounts:
           - path: /mnt/Medienbibliothek/Medien
-            readOnly: true
-      transcode:
+      tmps:
         type: emptyDir
-        globalMounts:
-          - path: /transcode
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /cache
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          jellyfin:
+            app:
+              - path: /cache
+                subPath: cache
+              - path: /config/log
+                subPath: log
+              - path: /tmp
+                subPath: tmp
     route:
       app:
         hostnames:
