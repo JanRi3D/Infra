@@ -5,10 +5,10 @@ metadata:
   name: tuppr
   namespace: tuppr
 spec:
+  interval: 1h
   chartRef:
     kind: OCIRepository
     name: tuppr
-  interval: 1h
   install:
     crds: CreateReplace
     remediation:
