@@ -3,6 +3,7 @@ apiVersion: tuppr.home-operations.com/v1alpha1
 kind: KubernetesUpgrade
 metadata:
   name: kubernetes
+  namespace: tuppr
 spec:
   kubernetes:
     version: v1.35.1
