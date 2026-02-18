@@ -46,16 +46,16 @@ spec:
         existingClaim: jellyfin-pvc
         globalMounts:
           - path: /config
-      cache:
-        enabled: true
-        type: emptyDir
-        advancedMounts:
-          jellyfin:
-            main:
-              - path: /config/cache
       transcode:
         enabled: true
         type: emptyDir
+        globalMounts:
+          - path: /transcode
+      cache:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /cache
       media:
         type: nfs
         server: 10.0.1.8
