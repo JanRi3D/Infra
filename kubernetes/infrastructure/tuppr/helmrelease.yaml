@@ -13,12 +13,11 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
+  interval: 1h
   upgrade:
     cleanupOnFail: true
+    crds: CreateReplace
     remediation:
       retries: 3
-  uninstall:
-    crds: CreateReplace
-    keepHistory: false
   values:
     replicaCount: 2
