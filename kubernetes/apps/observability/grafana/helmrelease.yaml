@@ -1,0 +1,40 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: grafana
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: grafana
+    namespace: grafana
+  interval: 1h
+  values:
+    admin:
+      existingSecret: grafana-secret
+    env:
+      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+      GF_EXPLORE_ENABLED: true
+      GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
+      GF_SERVER_ROOT_URL: https://{{ .Release.Name }}.ri3d.me
+    grafana.ini:
+      analytics:
+        check_for_updates: false
+        check_for_plugin_updates: false
+        reporting_enabled: false
+      auth.anonymous:
+        enabled: true
+      news:
+        news_feed_enabled: false
+    serviceMonitor:
+      enabled: true
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.ri3d.me"
+        parentRefs:
+          - name: envoy
+            namespace: envoy-gateway
+    persistence:
+      enabled: false
