@@ -2,13 +2,13 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: grafana
-  namespace: grafana
+  name: thelounge
+  namespace: thelounge
 spec:
   interval: 1h
-  url: oci://ghcr.io/grafana/helm-charts/grafana
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
   layerSelector:
     mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
     operation: copy
   ref:
-    semver: 10.5.15
+    semver: 4.6.2
