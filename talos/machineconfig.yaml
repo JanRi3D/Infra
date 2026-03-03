@@ -1,0 +1,41 @@
+---
+version: v1alpha1
+machine:
+  features:
+    kubePrism:
+      enabled: true
+      port: 7445
+    kubernetesTalosAPIAccess:
+      enabled: true
+      allowedKubernetesNamespaces:
+        - tuppr
+      allowedRoles:
+        - os:admin
+  files:
+    - op: overwrite
+      path: /etc/nfsmount.conf
+      permissions: 0o644
+      content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=3
+        hard=True
+        nconnect=8
+        noatime=True
+        nolock=True
+        rsize=1048576
+        wsize=1048576
+    - path: /etc/cri/conf.d/20-customization.part
+      op: create
+      content: |
+        [plugins."io.containerd.cri.v1.images"]
+          discard_unpacked_layers = false
+  install:
+    image: factory.talos.dev/metal-installer/81ffc23ba1f0113dcf159f5b4d82c41a3058818a0cdc70450adb387617bd9712:v1.12.4
+    wipe: true
+cluster:
+  network:
+    cni:
+      name: none
+  proxy:
+    disabled: true
+  allowSchedulingOnControlPlanes: true

@@ -1,0 +1,15 @@
+{{- $paths := dict
+  "kube-system/cilium"                  "../../kubernetes/apps/networking/cilium/app/helmrelease.yaml"
+  "cert-manager/cert-manager"           "../../kubernetes/apps/security/cert-manager/cert-manager/app/helmrelease.yaml"
+  "external-secrets/external-secrets"   "../../kubernetes/apps/security/external-secrets/external-secrets/app/helmrelease.yaml"
+  "external-secrets/onepassword"        "../../kubernetes/apps/security/external-secrets/onepassword/app/helmrelease.yaml"
+  "flux-system/flux-operator"           "../../kubernetes/flux-system/flux-operator/app/helmrelease.yaml"
+  "flux-system/flux-instance"           "../../kubernetes/flux-system/flux-instance/app/helmrelease.yaml"
+-}}
+{{- $key := printf "%s/%s" .Release.Namespace .Release.Name -}}
+{{- $p := index $paths $key -}}
+{{- if not $p -}}
+{{- fail (printf "No HelmRelease path mapping for %s" $key) -}}
+{{- end -}}
+{{- $hr := fromYaml (readFile $p) -}}
+{{- index $hr "spec" "values" | default dict | toYaml -}}
