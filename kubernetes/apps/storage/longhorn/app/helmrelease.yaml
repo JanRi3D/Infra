@@ -9,17 +9,9 @@ spec:
   chart:
     spec:
       chart: longhorn
-      version: 1.10.2
+      version: 1.11.0
       sourceRef:
         kind: HelmRepository
         name: longhorn
         namespace: longhorn-system
   interval: 15m
-  values:
-    defaultSettings:
-      defaultDataPath: /var/lib/longhorn
-      defaultReplicaCount: 3
-      replicaAutoBalance: best-effort
-      orphanAutoDeletion: true
-    persistence:
-      defaultClassIsDefault: true
