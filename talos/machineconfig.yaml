@@ -29,6 +29,15 @@ machine:
       content: |
         [plugins."io.containerd.cri.v1.images"]
           discard_unpacked_layers = false
+  kubelet:
+    extraMounts:
+      - destination: /var/lib/longhorn
+        type: bind
+        source: /var/lib/longhorn
+        options:
+          - bind
+          - rshared
+          - rw
   install:
     image: factory.talos.dev/metal-installer/81ffc23ba1f0113dcf159f5b4d82c41a3058818a0cdc70450adb387617bd9712:v1.12.4
     wipe: true

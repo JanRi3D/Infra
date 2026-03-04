@@ -4,6 +4,7 @@
 #! This helmfile is for extracting and installing Custom Resource Definitions (CRDs) from Helm charts.
 #! It is not intended to be used with helmfile apply or helmfile sync.
 #! Use helmfile template -q | yq ea 'select(.kind == "CustomResourceDefinition")' - | kubectl apply --server-side --force-conflicts -f -
+#! helmfile template -q | yq -y 'select(.kind == "CustomResourceDefinition")' - | kubectl apply --server-side --force-conflicts -f -
 
 helmDefaults:
   cleanupOnFail: true
