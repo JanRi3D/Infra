@@ -19,7 +19,7 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/jellyfin/jellyfin
+              repository: mirror.gcr.io/jellyfin/jellyfin
               tag: 10.11.6
             env:
               TZ: Europe/Berlin
