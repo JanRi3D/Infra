@@ -15,3 +15,6 @@ spec:
         name: longhorn
         namespace: longhorn-system
   interval: 15m
+  values:
+    privateRegistry:
+      registryUrl: mirror.gcr.io
