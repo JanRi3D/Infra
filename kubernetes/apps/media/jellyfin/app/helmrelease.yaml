@@ -24,27 +24,29 @@ spec:
             env:
               TZ: Europe/Berlin
             probes:
-              liveness:
-                enabled: true
-                spec:
-                  periodSeconds: 30
-                  timeoutSeconds: 5
-                  failureThreshold: 5
-              readiness:
+              liveness: &probe
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /health
-                    port: &port 8096
+                    port: 8096
+                  initialDelaySeconds: 0
                   periodSeconds: 10
-                  timeoutSeconds: 5
-                  failureThreshold: 5
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probe
               startup:
                 enabled: true
+                custom: true
                 spec:
-                  failureThreshold: 30
+                  httpGet:
+                    path: /health
+                    port: 8096
+                  initialDelaySeconds: 0
                   periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 30
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
