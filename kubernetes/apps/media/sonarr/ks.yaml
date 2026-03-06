@@ -3,13 +3,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: jellyfin
+  name: sonarr
 spec:
   dependsOn:
     - name: longhorn
       namespace: flux-system
+    - name: onepassword
+      namespace: external-secrets
   interval: 1h
-  path: ./kubernetes/apps/media/jellyfin/app
+  path: ./kubernetes/apps/media/sonarr/app
   prune: true
   sourceRef:
     kind: GitRepository
