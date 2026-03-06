@@ -7,4 +7,3 @@ namespace: kube-system
 resources:
   - ./cilium/ks.yaml
   - ./reloader/ks.yaml
-  - ./descheduler/ks.yaml
