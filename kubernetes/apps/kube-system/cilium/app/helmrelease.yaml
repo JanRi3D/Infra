@@ -11,6 +11,15 @@ spec:
     namespace: kube-system
   interval: 1h
   values:
+    autoDirectNodeRoutes: true
+    bandwidthManager:
+      enabled: true
+      bbr: true
+    bpf:
+      datapathMode: netkit
+      masquerade: true
+      preallocateMaps: true
+    bpfClockProbe: true
     cni:
       exclusive: false
     cgroup:
