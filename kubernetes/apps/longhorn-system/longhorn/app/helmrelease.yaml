@@ -13,7 +13,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: longhorn
-        namespace: flux-system
+        namespace: longhorn-system
   interval: 1h
   maxHistory: 3
   install:
