@@ -1,0 +1,11 @@
+---
+machine:
+  network:
+    hostname: Orion
+    interfaces:
+      - interface: enp0s31f6
+        dhcp: true
+        vip:
+          ip: 10.0.1.10
+  install:
+    disk: /dev/nvme0n1

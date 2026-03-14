@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: snapshot-controller
+  namespace: kube-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: snapshot-controller
+    namespace: kube-system
+  interval: 1h
+  values:
+    controller:
+      serviceMonitor:
+        create: false
+    volumeSnapshotClasses:
+      - name: longhorn
+        annotations:
+          snapshot.storage.kubernetes.io/is-default-class: "true"
+        driver: driver.longhorn.io
+        deletionPolicy: Delete
+        parameters:
+          type: snap
+    webhook:
+      enabled: false
