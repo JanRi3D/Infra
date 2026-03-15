@@ -88,9 +88,10 @@ spec:
       media:
         type: nfs
         server: 10.0.1.8
-        path: /volume1/Medienbibliothek
+        path: /volume1/Media
         globalMounts:
           - path: /media
+            readOnly: true
       tmpfs:
         type: emptyDir
         globalMounts:
