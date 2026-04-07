@@ -4,7 +4,7 @@
     "config:recommended",
     "docker:enableMajor",
     ":disableRateLimiting",
-    "semanticCommits"
+    ":semanticCommits"
   ],
   "flux": {
     "fileMatch": ["(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$"]
