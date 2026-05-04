@@ -93,8 +93,6 @@ spec:
               limits:
                 memory: 2Gi
     defaultPodOptions:
-      dnsPolicy: ClusterFirstWithHostNet
-      hostNetwork: true
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
