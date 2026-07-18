@@ -1,0 +1,18 @@
+---
+clusterName: Ri3D
+clusterEndpoint: https://k8s.internal:6443
+kubernetesVersion: 1.36.1
+talosVersion: 1.13.6
+nodes:
+  - host: Aurora
+    ip: 10.0.20.11
+    role: control-plane
+    schematicId: "@schematic.yaml"
+  - host: Orion
+    ip: 10.0.20.12
+    role: control-plane
+    schematicId: "@schematic.yaml"
+  - host: Selene
+    ip: 10.0.20.13
+    role: control-plane
+    schematicId: "@schematic.yaml"

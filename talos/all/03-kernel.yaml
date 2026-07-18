@@ -1,0 +1,6 @@
+machine:
+  kernel:
+    modules:
+      - name: rbd # Rook-Ceph RBD block volumes (krbd)
+      - name: ceph # Rook-Ceph CephFS
+      - name: nbd

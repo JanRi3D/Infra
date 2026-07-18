@@ -1,0 +1,4 @@
+machine:
+  install:
+    diskSelector:
+      serial: 10QPCDC7PTLL # KIOXIA KBG40ZNS256G 256GB

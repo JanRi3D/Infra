@@ -1,0 +1,4 @@
+machine:
+  install:
+    diskSelector:
+      serial: Y0JPGGL0QUM1 # KIOXIA KBG40ZNS256G 256GB

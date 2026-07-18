@@ -1,0 +1,14 @@
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  maxSize: 64GiB
+---
+apiVersion: v1alpha1
+kind: RawVolumeConfig
+name: rook-data
+provisioning:
+  diskSelector:
+    match: system_disk
+  grow: true
+  minSize: 100GiB
