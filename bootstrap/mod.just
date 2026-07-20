@@ -6,7 +6,6 @@ set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
 topf_config := justfile_dir() / "talos" / "topf.yaml"
-controller := `yq -r -e '.nodes[] | select(.role == "control-plane") | (.ip // .host)' "{{ topf_config }}" | head -1`
 
 [confirm('Bootstrap cluster? [y|N]')]
 [doc('Bootstrap a Talos & Kubernetes cluster end-to-end')]
@@ -33,8 +32,9 @@ kubeconfig lb="cilium":
         just log fatal "Failed to fetch kubeconfig" "stage" "{{ recipe_name() }}"
     fi
     if [[ "{{ lb }}" != "cilium" ]]; then
+        controller="$(yq -r -e '.nodes[] | select(.role == "control-plane") | (.ip // .host)' "{{ topf_config }}" | head -1)"
         cluster_name="$(kubectl --kubeconfig "{{ justfile_dir() }}/kubeconfig" config view -o jsonpath='{.clusters[0].name}')"
-        if ! kubectl --kubeconfig "{{ justfile_dir() }}/kubeconfig" config set-cluster "$cluster_name" --server "https://{{ controller }}:6443"; then
+        if ! kubectl --kubeconfig "{{ justfile_dir() }}/kubeconfig" config set-cluster "$cluster_name" --server "https://${controller}:6443"; then
             just log fatal "Failed to set kubectl cluster server address" "stage" "{{ recipe_name() }}"
         fi
     fi
