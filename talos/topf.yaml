@@ -2,7 +2,7 @@
 clusterName: Ri3D
 clusterEndpoint: https://k8s.internal:6443
 kubernetesVersion: 1.36.1
-talosVersion: 1.13.6
+talosVersion: 1.13.7
 nodes:
   - host: Aurora
     ip: 10.0.20.11
