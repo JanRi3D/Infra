@@ -3,51 +3,38 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: gatus-sidecar
+  name: ocharted
 spec:
   chartRef:
     kind: OCIRepository
-    name: gatus-sidecar
+    name: ocharted
   interval: 1h
   values:
+    replicaCount: 2
+    podDisruptionBudget:
+      enabled: true
+    auth:
+      existingSecret: ocharted-secret
+      bypassNetworks:
+        - 10.42.0.0/16
     deploymentAnnotations:
       reloader.stakater.com/auto: "true"
-    gatus:
-      delayStartSeconds: "5"
-      env:
-        TZ: Europe/Berlin
-    sidecar:
-      kinds:
-        httproute:
-          enable: true
-          auto: true
-        service:
-          enable: true
     httpRoute:
       enabled: true
       annotations:
-        gatus.home-operations.com/enabled: "false"
+        gatus.home-operations.com/endpoint: |-
+          path: /healthz
+          conditions: ["[STATUS] == 200"]
       hostnames:
         - "{{ .Release.Name }}.ri3d.me"
-        - status.ri3d.me
       parentRefs:
         - name: envoy-external
           namespace: networking
     monitoring:
       serviceMonitor:
         enabled: true
-    config:
-      existingConfigMap: "{{ .Release.Name }}-configmap"
-      items:
-        - key: config.yaml
-          path: config.yaml
-    persistence:
-      enabled: true
-      storageClass: ceph-block
-      accessMode: ReadWriteOnce
-      size: 5Gi
     resources:
       requests:
-        cpu: 100m
+        cpu: 10m
       limits:
         memory: 512Mi
