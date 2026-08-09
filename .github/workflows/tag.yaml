@@ -7,6 +7,10 @@ on:
   schedule:
     - cron: 0 0 1 * *
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
 permissions:
   contents: read
 
@@ -73,7 +77,7 @@ jobs:
               type: "commit"
             });
 
-            github.rest.git.createRef({
+            await github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: `refs/tags/${tagName}`,
