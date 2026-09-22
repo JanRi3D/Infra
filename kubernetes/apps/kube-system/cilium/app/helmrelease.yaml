@@ -15,7 +15,7 @@ spec:
       enabled: true
       bbr: true
     bpf:
-      datapathMode: veth # netkit unsupported by kata-containers: https://github.com/kata-containers/kata-containers/issues/12159
+      datapathMode: netkit
       masquerade: true
       preallocateMaps: true
     bpfClockProbe: true
@@ -29,7 +29,7 @@ spec:
       exclusive: false
     dashboards:
       enabled: true
-    devices: bond+
+    devices: enp0s31f6
     enableIPv4BIGTCP: false
     endpointRoutes:
       enabled: true

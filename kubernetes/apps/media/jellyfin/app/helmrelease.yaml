@@ -3,26 +3,26 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: plex
+  name: jellyfin
 spec:
   chartRef:
     kind: OCIRepository
-    name: plex
+    name: jellyfin
   interval: 1h
   values:
     controllers:
-      plex:
-        annotations:
-          reloader.stakater.com/auto: "true"
+      jellyfin:
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/plex
-              tag: 1.43.4.10903@sha256:fdc6fe82bc7d8acd08fc0aa581fcb76722803ba5905e2537135a697347dd6149
+              repository: ghcr.io/jellyfin/jellyfin
+              tag: 10.11.11@sha256:45f648c382a0c8b552582fcea40e95cb17c5d475473a891cba0eb7523fb92112
             env:
+              DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
+              JELLYFIN_FFmpeg__probesize: 50000000
+              JELLYFIN_FFmpeg__analyzeduration: 50000000
+              JELLYFIN_PublishedServerUrl: https://jellyfin.ri3d.me
               TZ: Europe/Berlin
-              PLEX_ADVERTISE_URL: https://plex.ri3d.me:443,http://10.0.40.14:32400,http://plex.media.svc.cluster.local:32400
-              PLEX_NO_AUTH_NETWORKS: 10.0.10.0/24
             probes:
               liveness:
                 enabled: true
@@ -35,8 +35,8 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /identity
-                    port: &port 32400
+                    path: /health
+                    port: &port 8096
                   periodSeconds: 10
                   timeoutSeconds: 5
                   failureThreshold: 5
@@ -55,11 +55,11 @@ spec:
               requests:
                 cpu: 100m
               limits:
-                memory: 2Gi
+                memory: 4Gi
     defaultPodOptions:
       resourceClaims:
         - name: gpu
-          resourceClaimTemplateName: plex
+          resourceClaimTemplateName: jellyfin
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -70,58 +70,18 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: 10.0.40.14
+          lbipam.cilium.io/ips: 10.0.40.13
         externalTrafficPolicy: Local
         ports:
           http:
             port: *port
     route:
       app:
-        annotations:
-          gatus.home-operations.com/endpoint: |-
-            path: /identity
         hostnames:
           - "{{ .Release.Name }}.ri3d.me"
         parentRefs:
           - name: envoy-external
             namespace: networking
-        rules:
-          - name: app
-            backendRefs: &backendRefs
-              - identifier: app
-                port: *port
-            filters:
-              - type: RequestHeaderModifier
-                requestHeaderModifier: &pipeline
-                  set:
-                    # Plex closes idle keep-alive connections after 20s unless this is set, so Envoy owns the pool
-                    - name: X-Plex-Http-Pipeline
-                      value: infinite
-          - name: events
-            backendRefs: *backendRefs
-            filters:
-              - type: RequestHeaderModifier
-                requestHeaderModifier: *pipeline
-            matches:
-              - path:
-                  type: PathPrefix
-                  value: /:/eventsource
-              - path:
-                  type: PathPrefix
-                  value: /:/websockets
-          - # Ref: https://forums.plex.tv/t/external-srt-subtitles-are-not-working-w-reverse-proxy/886540
-            name: subtitles
-            backendRefs: *backendRefs
-            filters:
-              - type: RequestHeaderModifier
-                requestHeaderModifier:
-                  <<: *pipeline
-                  remove:
-                    - Range
-            matches:
-              - path:
-                  type: PathPrefix
-                  value: /library/streams
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
