@@ -14,6 +14,9 @@ spec:
   upgrade:
     disableWait: true
   values:
+    podAnnotations:
+      # Values change forces an upgrade that re-applies crds/ (they were deleted mid-upgrade)
+      crds-reapplied: "2026-09-22"
     replicaCount: 2
     monitoring:
       serviceMonitor:
