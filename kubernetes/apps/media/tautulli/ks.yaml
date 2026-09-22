@@ -6,13 +6,13 @@ metadata:
   name: tautulli
 spec:
   components:
+    - ../../../../components/kopiur/backup
     - ../../../../components/zeroscaler
   interval: 1h
   path: ./kubernetes/apps/media/tautulli/app
   postBuild:
     substitute:
       APP: tautulli
-      KOPIUR_CAPACITY: 4Gi # PVC was created at 4Gi; unbound PVCs can't be resized
   prune: true
   sourceRef:
     kind: GitRepository

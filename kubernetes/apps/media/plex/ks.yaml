@@ -6,6 +6,7 @@ metadata:
   name: plex
 spec:
   components:
+    - ../../../../components/kopiur/backup
     - ../../../../components/zeroscaler
   interval: 1h
   path: ./kubernetes/apps/media/plex/app
