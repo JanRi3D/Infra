@@ -13,7 +13,7 @@ spec:
   postBuild:
     substitute:
       APP: radarr
-      KOPIUR_CAPACITY: 8Gi
+      KOPIUR_CAPACITY: 10Gi
   prune: true
   sourceRef:
     kind: GitRepository
