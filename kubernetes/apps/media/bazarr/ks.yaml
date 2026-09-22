@@ -13,7 +13,6 @@ spec:
   postBuild:
     substitute:
       APP: bazarr
-      KOPIUR_CAPACITY: 4Gi # PVC was created at 4Gi; unbound PVCs can't be resized
   prune: true
   sourceRef:
     kind: GitRepository
