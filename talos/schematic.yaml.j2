@@ -1,0 +1,12 @@
+---
+customization:
+  extraKernelArgs:
+    - i915.enable_guc=3
+    - intel_iommu=on
+    - iommu=pt
+    - sysctl.kernel.kexec_load_disabled=1
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/i915
+      - siderolabs/intel-ucode
+      - siderolabs/mei
