@@ -9,14 +9,7 @@ spec:
     kind: OCIRepository
     name: snapshot-controller
   interval: 1h
-  # ponytail: breaks the loop where a failed wait makes cleanupOnFail delete the CRDs the
-  # crash-looping pods need; drop once snapshot-controller is healthy
-  upgrade:
-    disableWait: true
   values:
-    podAnnotations:
-      # Values change forces an upgrade that re-applies crds/ (they were deleted mid-upgrade)
-      crds-reapplied: "2026-09-22"
     replicaCount: 2
     monitoring:
       serviceMonitor:
