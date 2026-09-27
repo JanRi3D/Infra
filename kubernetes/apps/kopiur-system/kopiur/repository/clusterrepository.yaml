@@ -3,7 +3,7 @@
 apiVersion: kopiur.home-operations.com/v1alpha1
 kind: ClusterRepository
 metadata:
-  name: cloudflare
+  name: glados
 spec:
   allowedNamespaces:
     all: true
@@ -14,10 +14,10 @@ spec:
           name: kopiur-repository-secret
           namespace: kopiur-system
       bucket: kopiur
-      endpoint: da5f0335376c1c9eced57f0a89d5ce55.r2.cloudflarestorage.com
-      region: auto
+      endpoint: glados.internal:3900 # Garage on the NAS
+      region: garage
       tls:
-        disableTls: false
+        disableTls: true
   encryption:
     passwordSecretRef:
       name: kopiur-repository-secret
