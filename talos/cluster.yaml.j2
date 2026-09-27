@@ -104,8 +104,9 @@ name: nfsmount.conf
 mode: 0o644
 contents: |
   [ NFSMount_Global_Options ]
+  # Talos has no rpc.statd, NFSv3 locking must stay local
   nfsvers=3
-  nolock=True # Talos has no rpc.statd
+  lock=False
   hard=True
   nconnect=16
   noatime=True
