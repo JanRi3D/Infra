@@ -17,7 +17,6 @@ resources:
   - ./chaski/ks.yaml
   - ./cleanrr/ks.yaml
   - ./plex/ks.yaml
-  - ./jellyfin/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./qui/ks.yaml

@@ -12,13 +12,8 @@ spec:
       - receiver: blackhole
         matchers:
           - name: alertname
-            value: InfoInhibitor
-            matchType: =
-      - receiver: blackhole
-        matchers:
-          - name: alertname
-            value: Watchdog
-            matchType: =
+            value: InfoInhibitor|Watchdog
+            matchType: =~
       - receiver: pushover
         matchers:
           - name: severity
