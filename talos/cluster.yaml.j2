@@ -43,7 +43,7 @@ clusterSecret: op://Infra/talos/CLUSTER_SECRET
 apiVersion: v1alpha1
 kind: UnattendedInstallConfig
 installer:
-  image: factory.talos.dev/metal-installer/{{ schematic }}:v1.14.1
+  image: factory.talos.dev/metal-installer/{{ schematic }}:v1.14.2
 provisioning:
   diskSelector:
     match: disk.transport == "nvme" && disk.size > 200u * GB && disk.size < 300u * GB
