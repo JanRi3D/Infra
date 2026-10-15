@@ -45,7 +45,7 @@ spec:
       enabled: true
       storageClass: ceph-block
       accessMode: ReadWriteOnce
-      size: 5Gi
+      size: 4Gi
     resources:
       requests:
         cpu: 100m

@@ -14,7 +14,7 @@ spec:
       envoyDeployment:
         replicas: 2
         container:
-          image: mirror.gcr.io/envoyproxy/envoy:v1.39.1
+          image: mirror.gcr.io/envoyproxy/envoy:v1.39.4
           # imageRepository: mirror.gcr.io/envoyproxy/envoy
           resources:
             requests:
@@ -133,7 +133,7 @@ spec:
     numRetries: 2
     retryOn:
       triggers:
-        - reset
+        - reset-before-request
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway

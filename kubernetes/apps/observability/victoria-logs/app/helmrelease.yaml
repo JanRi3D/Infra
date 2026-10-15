@@ -22,7 +22,7 @@ spec:
       persistentVolume:
         enabled: true
         storageClassName: ceph-block
-        size: 50Gi # must match live volumeClaimTemplate (immutable)
+        size: 32Gi
       retentionPeriod: 90d
       route:
         enabled: true

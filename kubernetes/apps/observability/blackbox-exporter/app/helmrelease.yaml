@@ -39,7 +39,7 @@ spec:
     prometheusRule:
       enabled: true
       rules:
-        - alert: LanProbeFailed
+        - alert: ProbeFailed
           expr: |-
             probe_success{service="blackbox-exporter"} == 0
           for: 15m
