@@ -16,6 +16,7 @@ resources:
   - ./brrpolice/ks.yaml
   - ./chaski/ks.yaml
   - ./cleanrr/ks.yaml
+  - ./jellyfin/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
